@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+using namespace std;
+string mirror (string str)
+{
+    string reversed_for_mirror_string = "zyxwvutsrqponmlkjihgfedcba";
+    int l = str.size();
+
+    for(int i=0; i<l; ++i)
+        str[i] = reversed_for_mirror_string[str[i] - 'a'];
+    return str;
+}
+
+
+int main()
+{
+    string str;
+
+    while(getline(cin,str))
+    {
+        cout<<mirror(str)<<endl;
+    }
+    return 0;
+}
