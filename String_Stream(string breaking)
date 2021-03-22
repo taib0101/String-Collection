@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+vector < string > stringg(string str)
+{
+    stringstream ss(str);
+    string n;
+    vector < string > v;
+    while(ss >> n)// string er jnno eivabe
+    {
+        v.push_back(n);
+//        cout << n << endl;//cout << ss.str() << endl; // eivabeo output bair kra jay
+    }
+    return v;
+}
+
+int main()
+{
+    string str;
+    while(getline(cin , str))
+    {
+        vector < string > vec = stringg(str);
+        for(int i = 0; i < vec.size(); ++i)
+            cout << vec[i] << endl;
+    }
+    return 0;
+}
