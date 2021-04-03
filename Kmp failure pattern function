@@ -1,0 +1,96 @@
+#include<bits/stdc++.h>
+using namespace std;
+//Kmp failure pattern function
+//Modified
+void failure_function(string pt)
+{
+    vector < string > str;
+    vector < int > lpv;
+    int lps[100],i = 0, j = 1;
+    lps[0] = 0;
+    bool vis[100] = {0};
+    int stl = pt.size() - 1;
+    while(j <= stl)
+    {
+        if(pt[i] == pt[j])
+        {
+            lps[j] = i + 1;
+            i++;
+            j++;
+        }
+        else if(i == 0)
+        {
+            lps[j] = 0;
+            j++;
+        }
+        else
+            i = lps[i-1];
+        if(!vis[lps[j-1]])
+        {
+            lpv.push_back(lps[j-1]);
+            vis[lps[j-1]] = 1;
+        }
+    }
+    for(int i = 0; i <= stl; ++i)
+        printf("lps[%d] = %d\n", i, lps[i]);
+    for(int a = 0; a < lpv.size(); ++a)
+        cout << "lpv = " << lpv[a] << endl;
+    for(int a = 0; a < lpv.size(); ++a)
+    {
+        string st;
+        for(int b = 0; b <= lpv[a]; ++b)
+        {
+            st.push_back(pt[b]);
+        }
+        str.push_back(st);
+        cout << st << endl;
+    }
+}
+
+int main()
+{
+    string pattern;
+    while(cin >> pattern)
+    {
+        failure_function(pattern);
+    }
+    return 0;
+}
+//////////////////////////////////
+//Main failure function
+#include<bits/stdc++.h>
+using namespace std;
+void failure_function(string pt)
+{
+    vector < string > str;
+    int lps[100],i = 0, j = 1;
+    lps[0] = 0;
+    int stl = pt.size() - 1;
+    while(j <= stl)
+    {
+        if(pt[i] == pt[j])
+        {
+            lps[j] = i + 1;
+            i++;
+            j++;
+        }
+        else if(i == 0)
+        {
+            lps[j] = 0;
+            j++;
+        }
+        else
+            i = lps[i-1];
+    }
+    for(int i = 0; i <= stl; ++i)
+        printf("lps[%d] = %d\n", i, lps[i]);
+}
+
+int main()
+{
+    string pattern;
+    while(cin >> pattern)
+        failure_function(pattern);
+        
+    return 0;
+}
