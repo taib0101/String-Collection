@@ -94,3 +94,85 @@ int main()
         
     return 0;
 }
+//////////////////////////////////////////
+text finding from failure function
+#include<bits/stdc++.h>
+using namespace std;
+int lps[1000];
+//bool match(string txt,string ptn)
+//{
+//    int s = txt.size();
+//    int r = ptn.size(),temp;
+//    bool b = 1;
+//    for(int i = 0,j = 0; i < s; ++i)
+//    {
+//        if(txt[i] == ptn[j])
+//            j++;
+//        else
+//            j = 0;
+//        if(j == r)
+//            return 1;
+//            cout << "i = " << i << endl;
+//    }
+//    return 0;
+//}
+void flf(string ptn)
+{
+    int ps = ptn.size();
+    int i = 0, j = 1;
+    while(j < ps)
+    {
+        if(ptn[i] == ptn[j])
+        {
+            lps[j] = i+1;
+            i++;
+            j++;
+        }
+        else if(i == 0)
+        {
+            lps[j] = 0;
+            j++;
+        }
+        else
+            i = lps[i-1];
+    }
+}
+bool match(string x, string y)
+{
+    int i = 0, j = 0;
+    int xs = x.size();
+    int ys = y.size();
+    cout << "xs = " << xs << endl;
+    while(i < xs)
+    {
+        if(x[i] == y[j])
+        {
+            if(j == ys-1)
+                return 1;
+             i++;
+            j++;
+        }
+        else if(j != 0)
+            j = lps[j-1];
+        else
+            i++;
+
+    }
+    return 0;
+}
+int main()
+{
+    string txt;
+    string ptn;
+    while(cin >> txt >> ptn)
+    {
+        memset(lps,0,sizeof(lps));
+        flf(ptn);
+        if(match(txt,ptn))
+            cout << "Found" << endl;
+        else
+            cout << "Not Found" << endl;
+    }
+
+    return 0;
+}
