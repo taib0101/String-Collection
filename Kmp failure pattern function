@@ -95,27 +95,12 @@ int main()
     return 0;
 }
 //////////////////////////////////////////
+O(N)
 text finding from failure function
 #include<bits/stdc++.h>
 using namespace std;
 int lps[1000];
-//bool match(string txt,string ptn)
-//{
-//    int s = txt.size();
-//    int r = ptn.size(),temp;
-//    bool b = 1;
-//    for(int i = 0,j = 0; i < s; ++i)
-//    {
-//        if(txt[i] == ptn[j])
-//            j++;
-//        else
-//            j = 0;
-//        if(j == r)
-//            return 1;
-//            cout << "i = " << i << endl;
-//    }
-//    return 0;
-//}
+
 void flf(string ptn)
 {
     int ps = ptn.size();
