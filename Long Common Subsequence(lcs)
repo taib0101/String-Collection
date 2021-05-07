@@ -1,0 +1,67 @@
+Main algorithm which i learnt that first
+
+
+////////////////////////////////////////////////////////
+printing common sequence
+#include<bits/stdc++.h>
+using namespace std;
+map < string, bool > mp;
+vector < string > an;
+int a;
+//providence
+//president
+void lcs(string x, string y, int i,int j,string tmp)
+{
+    int xs = x.size();
+    int ys = y.size();
+    if(i == xs || j == ys)
+    {
+        if((i == xs || j == ys) && !mp[tmp] && !tmp.empty())
+        {
+            int sz = an.size();
+            int tz = tmp.size();
+            if(sz == 0)
+                an.push_back(tmp);
+            else
+            {
+                sz = an[0].size();
+                if(tz > sz)
+                {
+                    an.clear();
+                    an.push_back(tmp);
+                }
+                else if(tz == sz)
+                    an.push_back(tmp);
+            }
+            mp[tmp] = 1;
+        }
+        return;
+    }
+
+    else if(x[i] == y[j])
+    {
+        tmp.push_back(x[i]);
+        lcs(x,y,i+1,j+1,tmp);
+    }
+    else
+    {
+        lcs(x,y,i,j+1,tmp);
+        lcs(x,y,i+1,j,tmp);
+    }
+}
+
+int main()
+{
+    string x, y;
+    while(cin >> x>> y)
+    {
+        string temp;
+        a = 0;
+        lcs(x,y,0,0,temp);
+        for(int i = 0; i < an.size(); ++i)
+            cout << an[i] << " ";
+        cout << endl;
+        mp.clear();
+    }
+    return 0;
+}
