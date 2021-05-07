@@ -1,4 +1,33 @@
 Main algorithm which i learnt that first
+**************************
+Recursive way
+#include<bits/stdc++.h>
+using namespace std;
+//abcd
+//bd
+int lcs(string x, string y, int i,int j)
+{
+    int xs = x.size();
+    int ys = y.size();
+    if(i == xs || j == ys)
+        return 0;
+    else if(x[i] == y[j])
+        return 1 + lcs(x,y,i+1,j+1);
+    return max(lcs(x,y,i,j+1),lcs(x,y,i+1,j));
+
+}
+
+int main()
+{
+    string x, y;
+    while(cin >> x>> y)
+    {
+        cout << "x = " << x.size() << endl;
+        cout << "y = " << y.size() << endl;
+        cout << "lenth = " << lcs(x,y,0,0) << endl;
+    }
+    return 0;
+}
 
 
 ////////////////////////////////////////////////////////
