@@ -1,0 +1,35 @@
+/////////  COMPLEXITY O(n^2)
+#include<bits/stdc++.h>
+using namespace std;
+int lpss(string x)
+{
+    int sz = x.size();
+    int lps[sz+5][sz+5];
+    memset(lps,0,sizeof(lps));
+    for(int i = 0; i < sz; ++i)
+        lps[i][i] = 1;
+    // cl means vag vag kre sring er plaindrome er size cheack kra;
+    for(int cl = 2; cl <= sz; ++cl)
+    {
+        for(int i = 0; i <= sz-cl; ++i)
+        {
+            int j = i + cl - 1;
+            if(x[i] == x[j] && cl == 2)
+                lps[i][j] = 2;
+            else if(x[i] == x[j])
+                lps[i][j] = 2 + lps[i+1][j-1];
+            else
+                lps[i][j] = max(lps[i][j-1],lps[i+1][j]);
+        }
+    }
+    return lps[0][sz-1];
+}
+
+int main()
+{
+    string str;
+    while(cin >> str)
+    {
+       cout << lpss(str) << endl;
+    }
+}
