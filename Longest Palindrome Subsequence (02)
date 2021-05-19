@@ -1,0 +1,109 @@
+#include<bits/stdc++.h>
+using namespace std;
+// longest palindrome subsequence O(n)
+// geeksforgeeks
+
+//int lps(string x)// for O(n) // from geeks for geeks
+//{
+//    int n = x.size();
+//    int dp[n];
+//    memset(dp,0,sizeof(dp));
+//    for(int i = n-1; i >= 0; --i)
+//    {
+//        int back_up = 0;
+//        for(int j = i; j < n; ++j)
+//        {
+//            if(i == j)
+//                dp[j] = 1;
+//            else if(x[i] == x[j])
+//            {
+//                int temp = dp[j];
+//                dp[j] = back_up + 2;
+//                back_up = temp;
+//            }
+//            else
+//            {
+//                back_up = dp[j];
+//                dp[j] = max(dp[j-1],dp[j]);
+//            }
+//            printf("x[i = %d] = %c ,x[j = %d] = %c ,back_up = %d, dp[%d] = %d\n",i,x[i],j,x[j],back_up,j,dp[j]);
+//        }
+//        cout << endl << endl;
+//    }
+//    return dp[n-1];
+//}
+
+int lps(string x) // O(n^2) // from geeks for geeks
+{
+    int n = x.size();
+    int dp[n][n];
+    memset(dp,0,sizeof(dp));
+    for(int i = 0; i < n; ++i)
+        dp[i][i] = 1;
+    for(int cl = 2; cl <= n; ++cl)
+    {
+        for(int i = 0; i <= n-cl; ++i)
+        {
+            int j = cl + i - 1;
+            if(x[i] == x[j] && cl == 2)
+                dp[i][j] = 2;
+            else if(x[i] == x[j])
+                dp[i][j] = dp[i+1][j-1] + 2;
+            else
+                dp[i][j] = max(dp[i][j-1],dp[i+1][j]);;
+        }
+    }
+    return dp[0][n-1];
+}
+
+int lps(string str)//manachar algorithm by my code
+{
+    int maxx = 1, n = str.size();
+        string man;
+        for(int i = 0; i < n; ++i)
+        {
+            man.push_back('#');
+            man.push_back(str[i]);
+        }
+        man.push_back('#');
+        for(int i = 0; i < man.size(); ++i)
+            cout << man[i];
+        cout << endl;
+        int lps[10000];
+        memset(lps,0,sizeof(lps));
+        lps[0] = 0;
+        n = man.size();
+        cout << n << endl;
+        for(int mid = 1; mid <= n-1; ++mid)
+        {
+            int i, j, co = 0;
+            i = mid + 1;
+            if(mid <= (n-1)/2)
+                j = mid * 2;
+            else
+                j = n - 1;
+            for(int k = mid-1; i <= j; ++i, --k)
+            {
+                if(man[i] == man[k])
+                    co++;
+                else
+                    break;
+//                    maxx = max(maxx,co);
+            }
+            maxx = max(maxx,co);
+            lps[mid] = co;
+//            cout << co << endl;
+            cout << man[mid] << " = " << co << endl;
+        }
+        return maxx;
+}
+
+int main()
+{
+    string str;
+    while(cin >> str)
+    {
+        cout << "lps = " << lps(str) << endl;
+    }
+    return 0;
+}
